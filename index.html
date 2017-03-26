@@ -66,8 +66,8 @@
 
       </script>
 
-        <button type ="button" id = "imageLoader"  class="btn btn-primary btn-block btn-lg " onclick="document.getElementById('fileID').click(); document.getElementById('second').className = 'btn btn-primary btn-block btn-xl active';" /> Browse</button>
-        <input id="fileID" style="visibility: hidden;"  type="file" accept="image/*" id="imageLoader" name="imageLoader1" capture="camera" height = "400px" width = "400px" />
+       <button type ="button" id = "imageLoader"  class="btn btn-primary btn-block btn-lg " onclick="document.getElementById('fileID').click(); document.getElementById('second').className = 'btn btn-primary btn-block btn-xl active';" /> Browse</a>
+ -<input id="fileID" style="visibility: hidden;"  type="file" accept="image/*" id="imageLoader" name="imageLoader1" capture="camera" height = "400px" width = "400px" />
         
 
         <canvas id="imageCanvas"></canvas>
@@ -79,37 +79,6 @@
     </div>
 
 
- <div class="col-12">
-    <table class="table">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
 
 </div>
 
@@ -246,12 +215,20 @@ function getNur(){
           var NUR = data.report.foods[0].nutrients
             console.log(data.report.foods[0].nutrients);
             //alert("sucess");
+			var table = document.createElement("table");
             for (items in NUR){
               nut[items] = NUR[items].nutrient + " " + NUR[items].value + NUR[items].unit;
              document.getElementById('out') + "<tr>" + nut[items] + "</tr>";
 
+  var row = table.insertRow(-1);
+  var firstNameCell = row.insertCell(-1);
+  firstNameCell.appendChild(document.createTextNode(NUR[items].nutrient));
+  var lastNameCell = row.insertCell(-1);
+  lastNameCell.appendChild(document.createTextNode(NUR[items].value + NUR[items].unit));
+
             }
 
+document.body.appendChild(table);
             console.log(nut);
 
         })
