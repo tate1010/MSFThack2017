@@ -75,8 +75,10 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
     <div class="container">
+   <div class="row">
+      <div class="col-12">
+
 
       <script type="text/javascript">
 
@@ -90,8 +92,38 @@
 
 <canvas id="imageCanvas"></canvas>
 <button id ="second" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
-
+<button id ="third" size = "100%" class="btn btn-primary btn-block btn-lg"  type="button" onclick="getFact()"> FOOD</a>
+</button>
+</button>
     </div> <!-- /container -->
+    </div>
+  </div>
+ <div class="row">
+ <div class="col-12">
+     <table class="table">
+       <thead>
+         <tr>
+           <th>#</th>
+           <th>Firstname</th>
+           <th>Lastname</th>
+           <th>Age</th>
+           <th>City</th>
+           <th>Country</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td>1</td>
+           <td>Anna</td>
+           <td>Pitt</td>
+           <td>35</td>
+           <td>New York</td>
+           <td>USA</td>
+         </tr>
+       </tbody>
+     </table>
+     </div>
+</div>
 
 <script>
 var imageLoader = document.getElementById('imageLoader');
@@ -154,13 +186,13 @@ function getTag(){
             // Request parameters
             //"visualFeatures": "Categories",
             //"details": "{string}",
-          //"visualFeatures": "Tags",
-          //"language": "en"
-          "maxCandidates": "10"
+          "visualFeatures": "Description,Tags,Categories",
+          "language": "en"
+          //""maxCandidates": "10"
         };
 
         $.ajax({
-            url: "https://westus.api.cognitive.microsoft.com/vision/v1.0/describe?" + $.param(params),
+            url: "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?" + $.param(params),
             beforeSend: function(xhrObj){
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type","application/octet-stream");
@@ -183,6 +215,67 @@ function getTag(){
     });
 
     }
+
+var num = 0;
+    function getFact(){
+
+        $(function () {
+
+
+            $.ajax({
+                url: "https://api.nal.usda.gov/ndb/search/?format=json&q=" + "pizza"  + "&sort=n&max=25&offset=0&api_key=rNBIQ9vA57fiN7eKotggAWbnreM8CUdvOt9ESUka"
+
+
+                      })
+            .done(function(data) {
+                console.log(data.list.item[0].ndbno)
+                num = data.list.item[0].ndbno;
+                //alert("sucess");
+                getNur();
+
+            })
+            .fail(function(err) {
+              console.log(err);
+                alert(err);
+            });
+        });
+
+        }
+var nut = [];
+function getNur(){
+    $(function () {
+
+
+        $.ajax({
+
+         url: " https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=rNBIQ9vA57fiN7eKotggAWbnreM8CUdvOt9ESUka&nutrients=205&nutrients=204&nutrients=208&nutrients=269&ndbno=" + num
+
+
+
+                  })
+        .done(function(data) {
+
+          var NUR = data.report.foods[0].nutrients
+            console.log(data.report.foods[0].nutrients);
+            //alert("sucess");
+            for (items in NUR){
+              nut[items] = NUR[items].nutrient + " " + NUR[items].value + NUR[items].unit;
+
+
+            }
+
+            console.log(nut);
+
+        })
+        .fail(function(err) {
+          console.log(err);
+            alert(err);
+        });
+    });
+
+    }
+
+
 
 
 
