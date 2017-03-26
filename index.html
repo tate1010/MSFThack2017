@@ -167,8 +167,15 @@ function getTag(){
             data: makeblob(document.getElementById("imageCanvas").toDataURL()), processData : false
                   })
         .done(function(data) {
-          console.log(data.tags[0].name);
-     tempss = data.tags[0].name;
+		var int = 0;
+          console.log(data.tags[int].name);
+     tempss = data.tags[int].name;
+    if(tempps == "indoor"){
+       tempps = data.tags[++int].name;
+       }
+    if(tempps == "food"){
+	    tempps = data.tags[++int].name;
+    }
      getFact();
             console.log(data.description.tags);
             //alert(data.description.tags);
