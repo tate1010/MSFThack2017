@@ -30,6 +30,13 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
+
+    .table{
+
+      position:absolute;
+      bottom:50;
+    }
+
     div {height:100%; overflow:hidden;}
     body, html {height:100%;}
     body {overflow: hidden; }
@@ -100,29 +107,12 @@
   </div>
  <div class="row">
  <div class="col-12">
-     <table class="table">
-       <thead>
-         <tr>
-           <th>#</th>
-           <th>Firstname</th>
-           <th>Lastname</th>
-           <th>Age</th>
-           <th>City</th>
-           <th>Country</th>
-         </tr>
-       </thead>
-       <tbody>
-         <tr>
-           <td>1</td>
-           <td>Anna</td>
-           <td>Pitt</td>
-           <td>35</td>
-           <td>New York</td>
-           <td>USA</td>
-         </tr>
-       </tbody>
-     </table>
-     </div>
+     <table id= "out" class="table">
+<tr>
+  hi
+</tr>
+
+    </table>
 </div>
 
 <script>
@@ -260,7 +250,7 @@ function getNur(){
             //alert("sucess");
             for (items in NUR){
               nut[items] = NUR[items].nutrient + " " + NUR[items].value + NUR[items].unit;
-
+             document.getElementById('out') + "<tr>" + nut[items] + "</tr>";
 
             }
 
