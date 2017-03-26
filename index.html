@@ -176,6 +176,9 @@ function getTag(){
     if(tempss == "food"){
 	    tempss = data.tags[++int].name;
     }
+		    if(tempss == "table"){
+	    tempss = data.tags[++int].name;
+    }
      getFact();
             console.log(data.description.tags);
             //alert(data.description.tags);
