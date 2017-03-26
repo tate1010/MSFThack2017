@@ -10,7 +10,7 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Fixed Top Navbar Example for Bootstrap</title>
-
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -43,7 +43,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#"> MyFoodNetrition </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -63,14 +63,57 @@
               </ul>
             </li>
           </ul>
-      
+
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container">
-<input type="file" accept="image/*" capture="camera">
+
+      <script type="text/javascript">
+
+      function getTag(){
+
+        var newimg = document.getElementById('img').value;
+        alert(newimg);
+        $(function () {
+            var params = {
+                // Request parameters
+                "visualFeatures": "Categories",
+                "details": "{string}",
+                "language": "en",
+            };
+
+            $.ajax({
+                url: "https://westus.api.cognitive.microsoft.com/vision/v1.0/analyze?" + $.param(params),
+                beforeSend: function(xhrObj){
+                    // Request headers
+                    xhrObj.setRequestHeader("Content-Type","application/json");
+                    xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","{subscription key}");
+                },
+                type: "POST",
+                // Request body
+                data: "{body}",
+            })
+            .done(function(data) {
+                alert("success");
+            })
+            .fail(function() {
+                alert("error");
+            });
+        });
+
+        }
+      </script>
+
+
+<input type="file" accept="image/*" id="img" capture="camera">
+<button type="button" onclick="getTag()"> Submit</button>
+
     </div> <!-- /container -->
+
+
+
 
 
     <!-- Bootstrap core JavaScript
