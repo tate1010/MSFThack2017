@@ -7,7 +7,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
     <title>my food nutrition facts</title>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -19,6 +21,8 @@
 
     <!-- Custom styles for this template -->
     <link href="navbar-fixed-top.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+
 
   
     <style>
@@ -42,11 +46,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"> MyFoodNutrition </a>
+          <a class="navbar-brand" href="#"> FoodMe </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <!--<li class="active"><a href="#">Home</a></li> -->
 
 
           </ul>
@@ -66,13 +70,15 @@
 
       </script>
 
-       <button type ="button" id = "imageLoader"  class="btn btn-primary btn-block btn-lg " onclick="document.getElementById('fileID').click(); document.getElementById('second').className = 'btn btn-primary btn-block btn-xl active';" /> Browse</a>
- -<input id="fileID" style="visibility: hidden;"  type="file" accept="image/*" id="imageLoader" name="imageLoader1" capture="camera" height = "400px" width = "400px" />
+       <button type ="button" id = "imageLoader"  class="btn btn-primary btn-block btn-lg " onclick="document.getElementById('fileID').click(); document.getElementById('second1').className = 'btn btn-primary btn-block btn-xl active';getElementById('second2').className = 'btn btn-primary btn-block btn-xl active';getElementById('second3').className = 'btn btn-primary btn-block btn-xl active';" /> Browse</a>
+ <input id="fileID" style="visibility: hidden;"  type="file" accept="image/*" id="imageLoader" name="imageLoader1" capture="camera" height = "400px" width = "400px" />
         
 
         <canvas id="imageCanvas"></canvas>
-        <button id ="second" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
-        <button id ="third" size = "100%" class="btn btn-primary btn-block btn-lg"  type="button" onclick="getFact()"> FOOD</a>
+        <button id ="second1" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
+        <button id ="second2" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
+        <button id ="second3" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
+        <button id ="third" size = "100%" class="btn btn-primary btn-block btn-lg"  type="button" onclick="getFact()"> </a>
      
         </button>
             </div> <!-- /container -->
@@ -134,7 +140,7 @@ makeblob = function (dataURL) {
 
             return new Blob([uInt8Array], { type: contentType });
         }
-
+var tempss;
 
 function getTag(){
   var temp = makeblob(dataURL);
@@ -161,8 +167,11 @@ function getTag(){
             data: makeblob(document.getElementById("imageCanvas").toDataURL()), processData : false
                   })
         .done(function(data) {
+          console.log(data.tags[0].name);
+     tempss = data.tags[0].name;
+     getFact();
             console.log(data.description.tags);
-            alert(data.description.tags);
+            //alert(data.description.tags);
 
         })
         .fail(function(err) {
@@ -180,7 +189,7 @@ var num = 0;
 
 
             $.ajax({
-                url: "https://api.nal.usda.gov/ndb/search/?format=json&q=" + "pizza"  + "&sort=n&max=25&offset=0&api_key=rNBIQ9vA57fiN7eKotggAWbnreM8CUdvOt9ESUka"
+                url: "https://api.nal.usda.gov/ndb/search/?format=json&q=" + tempss  + "&sort=n&max=25&offset=0&api_key=rNBIQ9vA57fiN7eKotggAWbnreM8CUdvOt9ESUka"
 
 
                       })
