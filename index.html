@@ -8,29 +8,28 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
     <title>my food nutrition facts</title>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="navbar-fixed-top.css" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
 
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="assets/js/ie-emulation-modes-warning.js"></script>
 
-  
-    <style>
-
-   
-
-
-    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
   </head>
 
@@ -59,34 +58,29 @@
       </div>
     </nav>
     <div class="container">
-  
+
       <div class="col-12">
 
 
       <script type="text/javascript">
-
-
-
-
       </script>
 
        <button type ="button" id = "imageLoader"  class="btn btn-primary btn-block btn-lg " onclick="document.getElementById('fileID').click(); document.getElementById('second1').className = 'btn btn-primary btn-block btn-xl active';getElementById('second2').className = 'btn btn-primary btn-block btn-xl active';getElementById('second3').className = 'btn btn-primary btn-block btn-xl active';" /> Browse</a>
  <input id="fileID" style="visibility: hidden;"  type="file" accept="image/*" id="imageLoader" name="imageLoader1" capture="camera" height = "400px" width = "400px" />
-        
+
 
         <canvas id="imageCanvas"></canvas>
         <button id ="second1" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
         <button id ="second2" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
         <button id ="second3" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
         <button id ="third" size = "100%" class="btn btn-primary btn-block btn-lg"  type="button" onclick="getFact()"> </a>
-     
+
         </button>
             </div> <!-- /container -->
     </div>
-
-
-
+  </div>
 </div>
+
 
 <script>
 var imageLoader = document.getElementById('imageLoader');
@@ -140,7 +134,8 @@ makeblob = function (dataURL) {
 
             return new Blob([uInt8Array], { type: contentType });
         }
-var tempss;
+
+var apiReturns = [];
 
 function getTag(){
   var temp = makeblob(dataURL);
@@ -167,24 +162,10 @@ function getTag(){
             data: makeblob(document.getElementById("imageCanvas").toDataURL()), processData : false
                   })
         .done(function(data) {
-		var int = 0;
-          console.log(data.tags[int].name);
-     tempss = data.tags[int].name;
-    if(tempss == "indoor"){
-       tempss = data.tags[++int].name;
-       }
-    if(tempss == "food"){
-	    tempss = data.tags[++int].name;
-    }
-		    if(tempss == "table"){
-	    tempss = data.tags[++int].name;
-    }
-		 if(tempss == "plate"){
-	    tempss = data.tags[++int].name;
-    }
-     getFact();
             console.log(data.description.tags);
-            //alert(data.description.tags);
+          //  alert(data.description.tags);
+            apiReturns = data.description.tags;
+            getFood();
 
         })
         .fail(function(err) {
@@ -194,7 +175,46 @@ function getTag(){
     });
 
     }
+    var realfood ;
+    var dataaaa;
+function getFood(){
+  var q = "SELECT * FROM Food";
+  jQuery.post("/query", {"query": q})
+  .done(function(data){
+    dataaaa = data;
+    console.log('hello');
+    console.log(data);
+    pro();
+    console.log('hello');
+  })
+  .fail(function(err){
+    console.log('ERROR!');
+    console.error(err);
+  });
 
+}
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+function pro(){
+
+for(items in apiReturns ){
+
+
+for(element in dataaaa){
+ if(capitalizeFirstLetter( apiReturns[items]) == dataaaa[element]){
+
+realfood = apiReturns[items];
+
+tempss = realfood;
+getFact();
+break;
+ }
+
+}
+
+}}
+var tempss;
 var num = 0;
     function getFact(){
 
@@ -202,7 +222,7 @@ var num = 0;
 
 
             $.ajax({
-                url: "https://api.nal.usda.gov/ndb/search/?format=json&q=" + tempss  + "&sort=n&max=25&offset=0&api_key=rNBIQ9vA57fiN7eKotggAWbnreM8CUdvOt9ESUka"
+                url: "https://api.nal.usda.gov/ndb/search/?format=json&q=" + realfood  + "&sort=n&max=25&offset=0&api_key=rNBIQ9vA57fiN7eKotggAWbnreM8CUdvOt9ESUka"
 
 
                       })
@@ -237,23 +257,24 @@ function getNur(){
           var NUR = data.report.foods[0].nutrients
             console.log(data.report.foods[0].nutrients);
             //alert("sucess");
-			var table = document.createElement("table");
-		var rows = table.insertRow(-1);
-		var firstNameCell =rows.insertCell(-1);
-		firstNameCell.appendChild(document.createTextNode(tempss));
+
+            var table = document.createElement("table");
+		//var rows = table.insertRow(-1);
+		//var firstNameCell =rows.insertCell(-1);
+  		//firstNameCell.appendChild(document.createTextNode(tempss));
             for (items in NUR){
-              nut[items] = NUR[items].nutrient + " " + NUR[items].value + NUR[items].unit;
-             document.getElementById('out') + "<tr>" + nut[items] + "</tr>";
-   
-  var row = table.insertRow(-1);
-  var firstNameCell = row.insertCell(-1);
-  firstNameCell.appendChild(document.createTextNode(NUR[items].nutrient));
-  var lastNameCell = row.insertCell(-1);
-  lastNameCell.appendChild(document.createTextNode(NUR[items].value + NUR[items].unit));
+               nut[items] = NUR[items].nutrient + " " + NUR[items].value + NUR[items].unit;
+              document.getElementById('out') + "<tr>" + nut[items] + "</tr>";
 
-            }
+   var row = table.insertRow(-1);
+   var firstNameCell = row.insertCell(-1);
+   firstNameCell.appendChild(document.createTextNode(NUR[items].nutrient));
+   var lastNameCell = row.insertCell(-1);
+   lastNameCell.appendChild(document.createTextNode(NUR[items].value + NUR[items].unit));
+             }
+ document.body.appendChild(table);
 
-document.body.appendChild(table);
+
             console.log(nut);
 
         })
@@ -282,7 +303,7 @@ document.body.appendChild(table);
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
