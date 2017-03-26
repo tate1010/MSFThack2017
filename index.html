@@ -226,7 +226,7 @@ function getNur(){
             //alert("sucess");
 			var table = document.createElement("table");
 		var rows = table.insertRow(-1);
-		var firstNameCell =row.insertCell(-1);
+		var firstNameCell =rows.insertCell(-1);
 		firstNameCell.appendChild(document.createTextNode(tempss));
             for (items in NUR){
               nut[items] = NUR[items].nutrient + " " + NUR[items].value + NUR[items].unit;
