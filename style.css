@@ -1,6 +1,6 @@
 .navbar-brand {
 	font-size: 4em;
-	font-family: 'Lobster';
+	font-family: 'Lobster', 'Arial';
 	text-align: center;
 	
 
@@ -24,7 +24,7 @@
 @navbar-height:                    200px;
 .btn {
 	font-size: 2em;
-	font-family: 'Lobster';
+	font-family: 'Lobster', 'Arial';
 	text-shadow: black 3px 0 10px; 
 }
 
