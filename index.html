@@ -78,7 +78,7 @@
       </script>
 
 
-<input type="file" accept="image/*" id="imageLoader" name="imageLoader" capture="camera" />
+<input type="file" accept="image/*" id="imageLoader" name="imageLoader" capture="camera" height = "400px" width = "400px" />
 
 <canvas id="imageCanvas"></canvas>
 <button type="button" onclick="getTag()"> Submit</button>
@@ -93,15 +93,23 @@ var ctx = canvas.getContext('2d');
 var dataURL ;
 
 function handleImage(e){
+  var maxW=500;
+var maxH=500;
   dataURL = canvas.toDataURL();
 
     var reader = new FileReader();
     reader.onload = function(event){
         var img = new Image();
+
         img.onload = function(){
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img,0,0);
+          var iw=img.width;
+         var ih=img.height;
+         var scale=Math.min((maxW/iw),(maxH/ih));
+          var iwScaled=iw*scale;
+      var ihScaled=ih*scale;
+      canvas.width=iwScaled;
+      canvas.height=ihScaled;
+      ctx.drawImage(img,0,0,iwScaled,ihScaled);
         }
         img.src = event.target.result;
     }
