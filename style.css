@@ -1,0 +1,91 @@
+.navbar-brand {
+	font-size: 4em;
+	font-family: 'Lobster';
+	text-align: center;
+	
+
+}
+.navbar-inner {
+    height: 200px;  
+}
+
+.navbar {
+	height: 1.2em;
+	text-align: center;
+	display: inline-block;
+
+
+}
+
+.navbar-fixed-top {
+    height: 5em; /* Whatever you want. */
+}
+
+@navbar-height:                    200px;
+.btn {
+	font-size: 2em;
+	font-family: 'Lobster';
+	text-shadow: black 3px 0 10px; 
+}
+
+.container {
+	padding: 1em;
+}
+
+#imageLoader{
+	background-color: #D2B48C;
+	border-radius: 8em 8em      1em  1em;
+	background-color: #D2B48C;
+	
+	background-color: #D2B48C;
+background-image: radial-gradient(beige 5%, transparent 16%),
+radial-gradient(beige 5%, transparent 16%);
+background-size:60px 60px;
+background-position: 0 0, 30px 30px;
+}
+
+#third {
+	border-radius: 1em 1em  4em 4em;
+	height: 5em;
+	background-color: #D2B48C;
+	
+	background-color: #D2B48C;
+background-image: radial-gradient(beige 5%, transparent 16%),
+radial-gradient(beige 5%, transparent 16%);
+background-size:60px 60px;
+background-position: 0 0, 30px 30px;
+}
+
+#second1 {
+	background-color: #009900;
+
+}
+
+#second2 {
+	background-color: brown;
+}
+
+#second3 {
+	background-color: #ffcc00;
+}
+
+.navbar-nav li a {
+    line-height: 150px;
+    height: 150px;
+    padding-top: 0;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+a {
+	color: pink;
+}
