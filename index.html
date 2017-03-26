@@ -33,6 +33,21 @@
     div {height:100%; overflow:hidden;}
     body, html {height:100%;}
     body {overflow: hidden; }
+     .btn-lg{
+       margin:0 auto;
+       position:absolute;
+       left:0;
+     }
+    .btn-xl {
+      margin: 0 auto;
+      position:absolute;
+      bottom:0;
+      left:0;
+      size:100%;
+    padding: 30px 40px;
+    font-size: 20px;
+    border-radius: 10px;
+}
     </style>
   </head>
 
@@ -70,11 +85,11 @@
 
       </script>
 
-<button type ="button" id = "imageLoader"  class="btn btn-primary btn-block" onclick="document.getElementById('fileID').click();" /> Browse</a>
+<button type ="button" id = "imageLoader"  class="btn btn-primary btn-block btn-lg " onclick="document.getElementById('fileID').click(); document.getElementById('second').className = 'btn btn-primary btn-block btn-xl active';" /> Browse</a>
 <input id="fileID" style="visibility: hidden;"  type="file" accept="image/*" id="imageLoader" name="imageLoader1" capture="camera" height = "400px" width = "400px" />
 
 <canvas id="imageCanvas"></canvas>
-<button class="btn btn-primary btn-block"  type="button" onclick="getTag()"> Submit</a>
+<button id ="second" size = "100%" class="btn btn-primary btn-block btn-xl disabled"  type="button" onclick="getTag()"> Submit</a>
 
     </div> <!-- /container -->
 
